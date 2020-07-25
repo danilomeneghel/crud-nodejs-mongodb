@@ -19,5 +19,8 @@
   "devDependencies": {},
   "scripts": {
     "start": "node app.js"
+  },
+  "publishConfig": { 
+    "registry": "https://npm.pkg.github.com/" 
   }
 }
