@@ -8,7 +8,7 @@ module.exports = function(app){
     app.route('/users')
     .get(isLoggedIn, (req, res) => {
         User.find().exec((err, results) => {
-            if (err) return console.log(err)
+            if (err) return console.log(err);
 
             res.render('users', { data: results })
         })
@@ -24,10 +24,8 @@ module.exports = function(app){
                 email: req.body.email,
                 username: req.body.username
             }), req.body.password, function(err, user){
-            if(err){
-                console.log(err);
-                return res.render('add');
-            }
+            if(err) return res.render('user-add');
+
             passport.authenticate("local")(req, res, function(){
                 console.log('Add register success!')
                 res.redirect("/users"); 

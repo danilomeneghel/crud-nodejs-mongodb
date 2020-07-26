@@ -2,6 +2,9 @@
 <div class="panel">
     <div class="panel-body box-login">
         <h3 class="title-login">Sign Up</h3>
+        <% if(message.error) { %>
+            <div class="alert alert-danger"><%= message.error %></div>
+        <% } %>
         <div class="form-panel">
             <form action="/register" method="POST">
                 <div class="form-group">

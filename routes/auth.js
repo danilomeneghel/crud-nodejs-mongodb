@@ -13,12 +13,13 @@ module.exports = function(app){
 
     app.route('/')
     .get((req, res) => {
-        res.render("index"); 
+        res.render("index", { message: req.flash() }); 
     })
     .post(passport.authenticate("local", {
         successRedirect: "/users",
-        failureRedirect: "/" 
-    }), (req, res) => { });
+        failureRedirect: "/",
+        failureFlash: "Username or Password invalid"
+    }));
 
     app.route('/logout')
     .get((req, res) => {
@@ -27,7 +28,7 @@ module.exports = function(app){
     });
 
     app.get("/register", function(req, res) {
-        res.render("register");
+        res.render("register", { message: req.flash() });
     });
 
     app.post("/register", function(req,res){
@@ -36,12 +37,10 @@ module.exports = function(app){
                 email: req.body.email,
                 username: req.body.username
             }), req.body.password, function(err, user){
-            if(err){
-                console.log(err);
-                return res.render('register');
-            }
+            if(err) return res.render('register', { message: {error: err} });
+
             passport.authenticate("local")(req, res, function(){
-            res.redirect("/"); 
+                res.render("index", { message: {success: 'User successfully registered!'} }); 
             });
         });
     });

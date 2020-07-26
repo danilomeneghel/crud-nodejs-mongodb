@@ -1,25 +1,29 @@
 var express = require('express'),
-    app = express(),
-    bodyParser = require("body-parser"),
-    load = require('express-load'),
-    engine = require('ejs-mate'),
-    db = require('./config/db'),
-    error = require('./util/error');
+  engine = require('ejs-mate'),
+  app = express(),
+  bodyParser = require("body-parser"),
+  session = require('express-session'),
+  consign = require('consign'),
+  db = require('./config/db'),
+  error = require('./util/error'),
+  flash = require('connect-flash');
 
-app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.engine('ejs', engine); 
+app.use(session({
+  secret: 'vw9CGbidDQuqJgq',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.engine('ejs', engine);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(require("express-session")({
-    secret: "vw9CGbidDQuqJgqCqT7Db3HvFZvtsRbb",
-    resave: false,
-    saveUninitialized: false
-}));
+app.use(express.static(__dirname + '/public'));
+app.use(flash());
 
-load('routes').into(app);
+consign().include('routes').into(app);
 
 app.use(error.notfound);
 app.use(error.serverError);
