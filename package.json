@@ -23,9 +23,6 @@
   "scripts": {
     "start": "node app.js"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "repository": {
     "type": "git",
     "url": "ssh://git@github.com/danilomeneghel/crud-nodejs-mongodb.git",
