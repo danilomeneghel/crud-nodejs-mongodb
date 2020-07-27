@@ -41,12 +41,12 @@ a:hover.btn {
     background-color: #e4e4e4;
 }
 .bg-login .container-login {
-    max-width: 345px;
+    max-width: 342px;
     margin: 0px auto !important;
     padding-top: 60px !important;
 }
-.bg-login .container-cadastro {
-    max-width: 350px;
+.bg-login .container-register {
+    max-width: 342px;
     margin: 0px auto !important;
     padding-top: 120px !important;
 }
@@ -187,7 +187,7 @@ fieldset {
     left: 12px;
     z-index: 2;
 }
-.input-cadastro {
+.input-register {
     padding-left: 34px !important;
 }
 .input-login {
@@ -463,6 +463,59 @@ fieldset {
 
 .completed {
     text-decoration: line-through;
+}
+
+.tabs{
+    width:100%;
+    height:50px;
+    overflow:hidden; 
+    cursor:hand;
+    display: flex;
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+}
+.tab{
+    float:left; 
+    height:50px;
+    text-align:center; 
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-flex: 2;
+    flex-grow: 2;
+    margin: 0px;
+    border-bottom: 1px solid rgb(204, 204, 204);
+    border-right: 1px solid rgb(204, 204, 204);
+}
+.tab span {
+    height:50px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-flex: 2;
+    flex-grow: 2;
+}
+.active{
+    text-align:center;
+}
+.selected span{
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.08);
+    border-bottom: 3px solid black;
+}
+
+#contents{ 
+    width:100%; 
+    overflow:hidden; 
+}
+.content{
+    display:none; 
+    color:#000;
 }
 
 @media only screen and (max-width: 500px) {

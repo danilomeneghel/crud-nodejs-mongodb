@@ -1,34 +1,72 @@
 <% layout('base-login') -%>
 <div class="logo-login"></div>
 <div class="panel">
-    <div class="panel-body box-login">
-        <h3 class="title-login">Login</h3>
-        <% if(message.success) { %>
-            <div class="alert alert-success"><%= message.success %></div>
-        <% } %>
-        <div class="form-panel">
-            <form action="/" method="POST">
-                <div class="form-group">
-                    <i class="fa fa-user"></i>
-                    <input type="text" class="form-control input-login" name="username" placeholder="Username"/>
+    <div class="box-login">
+        <div class="tabs">
+            <div class="tab">
+                <span>Login</span>
+            </div>
+            <div class="tab">
+                <span>Sign Up</span>
+            </div>
+        </div>
+        
+        <div id="contents" class="panel-body">
+            <div class="content">
+                <% if(message.success) { %>
+                    <div class="alert alert-success"><%= message.success %></div>
+                <% } %>
+                <div class="form-panel">
+                    <form action="/" method="POST">
+                        <div class="form-group">
+                            <i class="fa fa-user"></i>
+                            <input type="text" class="form-control input-login" name="username" placeholder="Username"/>
+                        </div>
+                        <div class="form-group">
+                            <i class="fa fa-lock"></i>
+                            <input type="password" class="form-control input-login" name="password" placeholder="Password"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-login btn-lg btn-block" value="Login"/>
+                        </div>
+                    </form>
+                    <% if(message.error) { %>
+                        <div class="alert alert-danger"><%= message.error %></div>
+                    <% } %>
+                    <br><br>
+                    <div class="text-center">
+                        <div class="login-teste">Login de Teste:</div>
+                        Usuário: admin<br />
+                        Senha: admin123<br />
+                    </div>
                 </div>
-                <div class="form-group">
-                    <i class="fa fa-lock"></i>
-                    <input type="password" class="form-control input-login" name="password" placeholder="Password"/>
+            </div>
+
+            <div class="content">
+                <% if(message.error) { %>
+                    <div class="alert alert-danger"><%= message.error %></div>
+                <% } %>
+                <div class="form-panel">
+                    <form action="/register" method="POST">
+                        <div class="form-group">
+                            <i class="fa fa-user-circle"></i>
+                            <input type="text" class="form-control input-login" placeholder="Name" name="name" required="true" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <i class="fa fa-envelope"></i>
+                            <input type="text" class="form-control input-login" placeholder="Email" name="email" required="true" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <i class="fa fa-user"></i>
+                            <input type="text" class="form-control input-login" placeholder="Username" name="username" required="true" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <i class="fa fa-lock"></i>
+                            <input type="text" class="form-control input-login" placeholder="Password" name="password" required="true" autofocus>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-hdd-o"></i> Register</button><br>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-login btn-lg btn-block" value="Login"/>
-                </div>
-            </form>
-            <a href="/register">Sign Up</a>
-            <% if(message.error) { %>
-                <div class="alert alert-danger"><%= message.error %></div>
-            <% } %>
-            <br><br>
-            <div class="text-center">
-                <div class="login-teste">Login de Teste:</div>
-                Usuário: admin<br />
-                Senha: admin123<br />
             </div>
         </div>
     </div>
