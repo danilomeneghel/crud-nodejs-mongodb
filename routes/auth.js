@@ -20,7 +20,7 @@ module.exports = function(app){
         failureRedirect: "/",
         failureFlash: "Username or Password invalid"
     }),
-    (req, res, next) => {
+    (req, res) => {
         res.render("index", { user: req.user }); 
     });
 
