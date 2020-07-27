@@ -37,7 +37,7 @@ module.exports = function(app){
                 email: req.body.email,
                 username: req.body.username
             }), req.body.password, function(err, user){
-            if(err) return res.render('register', { message: {error: err} });
+            if(err) return res.render('register', { message: {error: err.message} });
 
             passport.authenticate("local")(req, res, function(){
                 res.render("index", { message: {success: 'User successfully registered!'} }); 
