@@ -19,8 +19,16 @@ module.exports = function(app){
         successRedirect: "/users",
         failureRedirect: "/",
         failureFlash: "Username or Password invalid"
-    }));
+    }),
+    (req, res, next) => {
+        res.render("index", { user: req.user }); 
+    });
 
+    app.get('*', function(req, res, next){
+        res.locals.user = req.user || null;
+        next();
+    });
+    
     app.route('/logout')
     .get((req, res) => {
         req.logout();
