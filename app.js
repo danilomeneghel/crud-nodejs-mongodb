@@ -1,7 +1,8 @@
-var express = require('express'),
+const express = require('express'),
   engine = require('ejs-mate'),
   app = express(),
   bodyParser = require("body-parser"),
+  passport = require("passport"),
   session = require('express-session'),
   consign = require('consign'),
   db = require('./config/db'),
@@ -21,9 +22,13 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/public'));
+
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.use(flash());
 
-consign().include('routes').into(app);
+consign().include('routes').then('controller').into(app);
 
 app.use(error.notfound);
 app.use(error.serverError);

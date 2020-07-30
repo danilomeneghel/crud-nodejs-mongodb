@@ -1,57 +1,20 @@
-var passport = require("passport"),
-    User = require("../models/user"),
-    LocalStrategy = require("passport-local");
+const auth = require('../controllers/auth')
 
-module.exports = function(app){
-
-    app.use(passport.initialize());
-    app.use(passport.session());
-
-    passport.use(new LocalStrategy(User.authenticate()));
-    passport.serializeUser(User.serializeUser());
-    passport.deserializeUser(User.deserializeUser());
+module.exports = (app) => {
 
     app.route('/')
-    .get((req, res) => {
-        res.render("index", { message: req.flash() }); 
-    })
-    .post(passport.authenticate("local", {
-        successRedirect: "/users",
-        failureRedirect: "/",
-        failureFlash: "Username or Password invalid"
-    }),
-    (req, res) => {
-        res.render("index", { user: req.user }); 
-    });
+        .get(auth.index)
+        .post(auth.login)
 
-    app.get('*', function(req, res, next){
-        res.locals.user = req.user || null;
-        next();
-    });
+    app.route('*')
+        .get(auth.userLogged)
     
     app.route('/logout')
-    .get((req, res) => {
-        req.logout();
-        res.redirect("/");
-    });
+        .get(auth.logout)
 
-    app.get("/register", function(req, res) {
-        res.render("register", { message: req.flash() });
-    });
+    app.route('/register')
+        .get(auth.getRegister)
+        .post(auth.postRegister)
 
-    app.post("/register", function(req,res){
-        User.register(new User({
-                name: req.body.name,
-                email: req.body.email,
-                username: req.body.username
-            }), req.body.password, function(err, user){
-            if(err) return res.render('register', { message: {error: err.message} });
-
-            passport.authenticate("local")(req, res, function(){
-                res.render("index", { message: {success: 'User successfully registered!'} }); 
-            });
-        });
-    });
-
-    return app;
+    return app
 }
