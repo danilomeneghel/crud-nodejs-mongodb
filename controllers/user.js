@@ -1,36 +1,36 @@
-var passport = require("passport"),
+const passport = require("passport"),
     User = require("../models/user"),
-    mongoose = require('mongoose'),
-    ObjectId = mongoose.Types.ObjectId
+    mongoose = require('mongoose')
 
-exports.list = (req, res) => {
-    User.find().exec((err, results) => {
+var ObjectId = mongoose.Types.ObjectId
+
+exports.userList = (req, res) => {
+    User.find()
+    .exec((err, results) => {
         if (err) return console.log(err)
 
         res.render('users', { data: results })
     })
 }
 
-exports.getAdd = (req, res) => {
+exports.pageAdd = (req, res) => {
     res.render("user-add")
 }
 
-exports.postAdd = (req, res) => {
+exports.userAdd = (req, res) => {
     User.register(new User({
-            name: req.body.name,
-            email: req.body.email,
-            username: req.body.username
-        }), req.body.password, function(err, user){
+        name: req.body.name,
+        email: req.body.email,
+        username: req.body.username
+    }), req.body.password, 
+    (err, user) => {
         if(err) return res.render('user-add')
 
-        passport.authenticate("local")(req, res, function(){
-            console.log('Add register success!')
-            res.redirect("/users")
-        })
+        res.redirect("/users")
     })
 }
 
-exports.getEdit = (req, res) => {
+exports.pageEdit = (req, res) => {
     var id = req.params.id
 
     User.find({_id: ObjectId(id)}).exec((err, result) => {
@@ -40,29 +40,46 @@ exports.getEdit = (req, res) => {
     })
 }
 
-exports.postEdit = (req, res) => {
-    var id = req.params.id,
-    name = req.body.name,
-    email = req.body.email,
-    username = req.body.username
-    
+exports.userEdit = (req, res) => {
     User.updateOne({_id: ObjectId(id)}, {
         $set: {
-            name: name,
-            email: email,
-            username: username
+            name: req.body.name,
+            email: req.body.email,
+            username: req.body.username,
+            password: req.body.password
         }
     }, (err, result) => {
         if (err) return res.send(err)
 
-        passport.authenticate("local")(req, res, function(){
-            console.log('Edit register success!')
-            res.redirect("/users")
-        })
+        res.redirect("/user-edit")
     })
 }
 
-exports.delete = (req, res) => {
+exports.pageProfile = (req, res) => {
+    User.find({_id: ObjectId(res.locals.user.id)})
+    .exec((err, result) => {
+        if (err) return res.send(err)
+        
+        res.render('profile', { data: result })
+    })
+}
+
+exports.editProfile = (req, res) => {
+    User.findByIdAndUpdate(res.locals.user.id, {
+        $set : {
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password
+        }
+    },
+    (err, user) => {
+        if (err) return res.send(err)
+
+        res.redirect("/profile")
+    })
+}
+
+exports.userDelete = (req, res) => {
     var id = req.params.id
 
     User.deleteOne({_id: ObjectId(id)}, (err, results) => {

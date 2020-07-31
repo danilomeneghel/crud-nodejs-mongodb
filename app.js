@@ -26,9 +26,14 @@ app.use(express.static(__dirname + '/public'));
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use(flash());
+app.get('*', (req, res, next) => {
+  res.locals.user = req.user || null
+  next()
+})
 
-consign().include('routes').then('controller').into(app);
+app.use(flash())
+
+consign().include('routes').into(app);
 
 app.use(error.notfound);
 app.use(error.serverError);

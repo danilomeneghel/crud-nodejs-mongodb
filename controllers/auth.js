@@ -18,26 +18,22 @@ exports.login = (req, res, next) => {
     })(req, res, next)
 }
 
-exports.userLogged = (req, res, next) => {
-    res.locals.user = req.user || null
-    next()
-}
-
 exports.logout = (req, res) => {
     req.logout()
     res.redirect("/")
 }
 
-exports.getRegister = (req, res) => {
+exports.pageRegister = (req, res) => {
     res.render("register", { message: req.flash() })
 }
 
-exports.postRegister = (req,res) => {
+exports.addRegister = (req,res) => {
     User.register(new User({
-            name: req.body.name,
-            email: req.body.email,
-            username: req.body.username
-        }), req.body.password, function(err, user){
+        name: req.body.name,
+        email: req.body.email,
+        username: req.body.username
+    }), req.body.password, 
+    (err, user) => {
         if(err) return res.render('register', { message: {error: err.message} })
 
         passport.authenticate("local")(req, res, function(){
