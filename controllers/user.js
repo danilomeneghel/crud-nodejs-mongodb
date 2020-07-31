@@ -31,9 +31,7 @@ exports.userAdd = (req, res) => {
 }
 
 exports.pageEdit = (req, res) => {
-    var id = req.params.id
-
-    User.find({_id: ObjectId(id)}).exec((err, result) => {
+    User.find({_id: ObjectId(req.params.id)}).exec((err, result) => {
         if (err) return res.send(err)
         
         res.render('user-edit', { data: result })
@@ -41,17 +39,17 @@ exports.pageEdit = (req, res) => {
 }
 
 exports.userEdit = (req, res) => {
-    User.updateOne({_id: ObjectId(id)}, {
+    User.updateOne({_id: ObjectId(req.params.id)}, {
         $set: {
             name: req.body.name,
             email: req.body.email,
             username: req.body.username,
             password: req.body.password
         }
-    }, (err, result) => {
-        if (err) return res.send(err)
+    }, (err, user) => {
+        if(err) return res.render('user-edit')
 
-        res.redirect("/user-edit")
+        res.redirect("/users")
     })
 }
 
@@ -65,14 +63,14 @@ exports.pageProfile = (req, res) => {
 }
 
 exports.editProfile = (req, res) => {
-    User.findByIdAndUpdate(res.locals.user.id, {
-        $set : {
+    User.updateOne({_id: ObjectId(res.locals.user.id)}, {
+        $set: {
             name: req.body.name,
             email: req.body.email,
+            username: req.body.username,
             password: req.body.password
         }
-    },
-    (err, user) => {
+    }, (err, user) => {
         if (err) return res.send(err)
 
         res.redirect("/profile")
@@ -80,9 +78,7 @@ exports.editProfile = (req, res) => {
 }
 
 exports.userDelete = (req, res) => {
-    var id = req.params.id
-
-    User.deleteOne({_id: ObjectId(id)}, (err, results) => {
+    User.deleteOne({_id: ObjectId(req.params.id)}, (err, results) => {
         if (err) return res.send(err)
 
         console.log('Delete register success!')        
