@@ -34,10 +34,10 @@ exports.addRegister = (req,res) => {
         username: req.body.username
     }), req.body.password, 
     (err, user) => {
-        if(err) return res.render('register', { message: {error: err.message} })
+        if(err) return res.render('register', { message: req.flash('error', err.message) })
 
         passport.authenticate("local")(req, res, function(){
-            res.render("index", { message: {success: 'User successfully registered!'} })
+            res.render("index", { message: req.flash('success', 'User successfully registered!') })
         })
     })
 }

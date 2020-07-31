@@ -45,8 +45,8 @@ exports.userEdit = (req, res) => {
         (err, user) => {
             if (err) return next(err)
 
-            user.name = req.body.name,
-            user.email = req.body.email,
+            user.name = req.body.name
+            user.email = req.body.email
             user.username = req.body.username
             user.save()
 
@@ -56,28 +56,31 @@ exports.userEdit = (req, res) => {
 }
 
 exports.pageProfile = (req, res) => {
-    User.find({_id: ObjectId(res.locals.user.id)})
+    User.find({_id: req.user.id})
     .exec((err, result) => {
         if (err) return res.send(err)
         
-        res.render('profile', { data: result })
+        res.render('profile', { data: result, message: {} })
     })
 }
 
 exports.editProfile = (req, res) => {
-    User.updateOne({_id: ObjectId(res.locals.user.id)})
-    .then((user) => {
-        user.setPassword(req.body.password, 
-        (err, user) => {
-            if (err) return next(err)
+    User.findByIdAndUpdate(req.user.id, req.body, function (err, user) {
+        if (err) return res.render('profile', { message: req.flash('error', err) }) 
+        
+        user.setPassword(req.body.password, (err, user) => {
+            if (err) return res.render('profile', { message: req.flash('error', err) }) 
 
-            user.name = req.body.name,
-            user.email = req.body.email,
+            user.name = req.body.name
+            user.email = req.body.email
             user.username = req.body.username
             user.save()
-
-            res.redirect("/profile")
         })
+    })
+    .exec((err, result) => {
+        if (err) return res.render('profile', { message: {'error': err} }) 
+        
+        res.render('profile', { data: [result], message: {'success': 'Profile updated success!'} })
     })
 }
 
@@ -85,7 +88,6 @@ exports.userDelete = (req, res) => {
     User.deleteOne({_id: ObjectId(req.params.id)}, (err, results) => {
         if (err) return res.send(err)
 
-        console.log('Delete register success!')        
         res.redirect('/users')
     })
 }
