@@ -41,8 +41,7 @@ exports.pageEdit = (req, res) => {
 exports.userEdit = (req, res) => {
     User.findOne({_id: ObjectId(req.params.id)})
     .then((user) => {
-        user.setPassword(req.body.password, 
-        (err, user) => {
+        user.setPassword(req.body.password, (err, user) => {
             if (err) return next(err)
 
             user.name = req.body.name
@@ -65,7 +64,13 @@ exports.pageProfile = (req, res) => {
 }
 
 exports.editProfile = (req, res) => {
-    User.findByIdAndUpdate(req.user.id, req.body, function (err, user) {
+    User.findByIdAndUpdate(req.user.id, {
+        $set: {
+            name: req.body.name,
+            email: req.body.email,
+            username: req.body.username
+        }
+    }, (err, user) => {
         if (err) return res.render('profile', { message: req.flash('error', err) }) 
         
         user.setPassword(req.body.password, (err, user) => {

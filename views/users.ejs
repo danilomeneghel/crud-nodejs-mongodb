@@ -9,7 +9,6 @@
                 <th>Name</td>
                 <th>Email</td>
                 <th>Username</td>
-                <th>Password</td>
                 <th class="text-center">Action</td>
             </tr>
         </thead>
@@ -19,7 +18,6 @@
                 <td><%= details.name %></td>
                 <td><%= details.email %></td>
                 <td><%= details.username %></td>
-                <td><%= details.password %></td>
                 <td class="text-center">
                     <a class="btn btn-primary" href="/user-edit/<%= details._id %>">Edit</a>
                     <a class="btn btn-danger" href="/user-delete/<%= details._id %>">Delete</a>
