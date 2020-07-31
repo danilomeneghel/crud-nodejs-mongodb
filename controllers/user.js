@@ -39,17 +39,19 @@ exports.pageEdit = (req, res) => {
 }
 
 exports.userEdit = (req, res) => {
-    User.updateOne({_id: ObjectId(req.params.id)}, {
-        $set: {
-            name: req.body.name,
-            email: req.body.email,
-            username: req.body.username,
-            password: req.body.password
-        }
-    }, (err, user) => {
-        if(err) return res.render('user-edit')
+    User.findOne({_id: ObjectId(req.params.id)})
+    .then((user) => {
+        user.setPassword(req.body.password, 
+        (err, user) => {
+            if (err) return next(err)
 
-        res.redirect("/users")
+            user.name = req.body.name,
+            user.email = req.body.email,
+            user.username = req.body.username
+            user.save()
+
+            res.redirect("/users")
+        })
     })
 }
 
@@ -63,17 +65,19 @@ exports.pageProfile = (req, res) => {
 }
 
 exports.editProfile = (req, res) => {
-    User.updateOne({_id: ObjectId(res.locals.user.id)}, {
-        $set: {
-            name: req.body.name,
-            email: req.body.email,
-            username: req.body.username,
-            password: req.body.password
-        }
-    }, (err, user) => {
-        if (err) return res.send(err)
+    User.updateOne({_id: ObjectId(res.locals.user.id)})
+    .then((user) => {
+        user.setPassword(req.body.password, 
+        (err, user) => {
+            if (err) return next(err)
 
-        res.redirect("/profile")
+            user.name = req.body.name,
+            user.email = req.body.email,
+            user.username = req.body.username
+            user.save()
+
+            res.redirect("/profile")
+        })
     })
 }
 
