@@ -4,7 +4,7 @@
     <div class="box-login">
         <div class="tabs">
             <div class="tab">
-                <span>Login</span>
+                <span>Sign In</span>
             </div>
             <div class="tab">
                 <span>Sign Up</span>
@@ -15,6 +15,8 @@
             <div class="content">
                 <% if(message.success) { %>
                     <div class="alert alert-success"><%= message.success %></div>
+                <% } else if(message.error) { %>
+                    <div class="alert alert-danger"><%= message.error %></div>
                 <% } %>
                 <div class="form-panel">
                     <form action="/" method="POST">
@@ -27,12 +29,9 @@
                             <input type="password" class="form-control input-login" name="password" placeholder="Password"/>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-login btn-lg btn-block" value="Login"/>
+                            <input type="submit" class="btn btn-login btn-lg btn-block" value="Sign In"/>
                         </div>
                     </form>
-                    <% if(message.error) { %>
-                        <div class="alert alert-danger"><%= message.error %></div>
-                    <% } %>
                     <br><br>
                     <div class="text-center">
                         <div class="login-teste">Login de Teste:</div>
@@ -43,9 +42,7 @@
             </div>
 
             <div class="content">
-                <% if(message.error) { %>
-                    <div class="alert alert-danger"><%= message.error %></div>
-                <% } %>
+                <div id="msg"></div>
                 <div class="form-panel">
                     <form action="/register" method="POST">
                         <div class="form-group">
@@ -62,9 +59,11 @@
                         </div>
                         <div class="form-group">
                             <i class="fa fa-lock"></i>
-                            <input type="text" class="form-control input-login" placeholder="Password" name="password" required="true" autofocus>
+                            <input type="password" class="form-control input-login" placeholder="Password" name="password" required="true" autofocus>
                         </div>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-hdd-o"></i> Register</button><br>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-login btn-lg btn-block" value="Sign Up"/>
+                        </div>
                     </form>
                 </div>
             </div>

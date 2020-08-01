@@ -487,7 +487,6 @@ fieldset {
     -webkit-box-flex: 2;
     flex-grow: 2;
     margin: 0px;
-    border-bottom: 1px solid rgb(204, 204, 204);
     border-right: 1px solid rgb(204, 204, 204);
 }
 .tab span {
@@ -499,14 +498,15 @@ fieldset {
     align-items: center;
     -webkit-box-flex: 2;
     flex-grow: 2;
+    background-color: #f0f0f0;
 }
 .active{
     text-align:center;
 }
 .selected span{
     font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.08);
-    border-bottom: 3px solid black;
+    background-color: #fff;
+    border-top: 3px solid black;
 }
 
 #contents{ 
