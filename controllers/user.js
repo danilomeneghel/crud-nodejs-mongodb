@@ -23,7 +23,7 @@ exports.userAdd = (req, res) => {
         email: req.body.email,
         username: req.body.username
     }), req.body.password, 
-    (err, user) => {
+    (err) => {
         if(err) return res.render('user-add')
 
         res.redirect("/users")
@@ -90,7 +90,8 @@ exports.editProfile = (req, res) => {
 }
 
 exports.userDelete = (req, res) => {
-    User.deleteOne({_id: ObjectId(req.params.id)}, (err, results) => {
+    User.deleteOne({_id: ObjectId(req.params.id)}, 
+    (err) => {
         if (err) return res.send(err)
 
         res.redirect('/users')

@@ -1,0 +1,21 @@
+<% layout('base') -%>
+<div class="panel">
+    <h2>Add Product<h2>
+    <div class="panel panel-default">
+        <div class="form-panel">
+            <form action="/product-add" method="POST">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Type" name="type" required="true" autofocus>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control money" placeholder="Price" name="price" required="true" autofocus>
+                </div>
+                <div class="form-group">
+                    <textarea type="text" class="form-control" placeholder="Description" name="description" required="true" autofocus></textarea>
+                </div>
+                <a href="/products" class="btn btn-default"><i class="fa fa-arrow-left"></i> Back</a>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-hdd-o"></i> Save</button><br>
+            </form>
+        </div>
+    </div>
+</div>
