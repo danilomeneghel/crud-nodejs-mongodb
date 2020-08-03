@@ -66,6 +66,8 @@ exports.pageEdit = (req, res) => {
                 if (err) return callback(err)
                 return callback(null, rows3)
             })
+            .populate('customer')
+            .populate('product')
         }
     ], function(err, callbackResults) {
         if (err) return res.send(err)
@@ -77,9 +79,11 @@ exports.pageEdit = (req, res) => {
 exports.orderEdit = (req, res) => {
     Order.updateOne({_id: ObjectId(req.params.id)}, {
         $set: {
-            type: req.body.type,
-            price: req.body.price,
-            description: req.body.description
+            customer: req.body.customer,
+            product: req.body.product,
+            quantity: req.body.quantity,
+            deliveryDate: req.body.deliveryDate,
+            note: req.body.note
         }
     })
     .then((result) => {

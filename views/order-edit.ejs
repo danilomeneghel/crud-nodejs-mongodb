@@ -10,17 +10,17 @@
 			<form action="/order-edit/<%= details._id %>" method="POST">
 				<div class="form-group">
                     <select class="form-control" name="customer">
-                        <option value="" selected="selected" disabled="true">Customer</option>
+                        <option value="" disabled="true">Customer</option>
 						<% customers.forEach(function(customer) { %>
-							<option value="<%=customer.id%>"><%=customer.name%></option>
+							<option value="<%=customer.id%>" <%=(customer.name == details.customer.name) ? 'selected' : ''%>><%=customer.name%></option>
                         <% }) %>
 					</select>
                 </div>
                 <div class="form-group">
                     <select class="form-control" name="product">
-                        <option value="" selected="selected" disabled="true">Product</option>
+						<option value="" disabled="true">Product</option>
 						<% products.forEach(function(product) { %>
-							<option value="<%=product.id%>"><%=product.name%></option>
+							<option value="<%=product.id%>" <%=(product.name == details.product.name) ? 'selected' : ''%>><%=product.name%></option>
                         <% }) %>
 					</select>
                 </div>
