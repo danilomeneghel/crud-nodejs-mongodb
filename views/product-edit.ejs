@@ -1,12 +1,15 @@
 <% layout('base') -%>
 <div class="panel">
 	<h2>Edit Product</h2>
+	<% if(message.error) { %>
+		<div class="alert alert-danger"><%= message.error %></div>
+	<% } %>
 	<div class="panel panel-default">
         <div class="form-panel">
 			<% data.forEach(function(details) { %>
 			<form action="/product-edit/<%= details._id %>" method="POST">
 				<div class="form-group">
-					<input type="text" class="form-control" value="<%= details.type %>" name="type" required="true" autofocus><br>
+					<input type="text" class="form-control" value="<%= details.name %>" name="name" required="true" autofocus><br>
 				</div>
 				<div class="form-group">
 					<input type="text" class="form-control money" value="<%= details.price %>" name="price" required="true" autofocus><br>

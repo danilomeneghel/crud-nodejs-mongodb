@@ -1,11 +1,16 @@
-# CRUD NODEJS MONGODB
+# CRUD NODEJS AND MONGODB
 
-This is a login tutorial for people who want to learn how to do a login for nodejs
+Project of a Delivery system made with NodeJS and MongoDB.
 
-Make sure to have mongodb running. Open extra terminal to run node.
-<br>mongod
+Make sure to have Mongodb running. 
 
-```js
+```
+$ mongod
+```
+
+Open extra terminal to run Node.
+
+```
 $ git clone https://github.com/danilomeneghel/crud-nodejs-mongodb.git
 
 $ npm install

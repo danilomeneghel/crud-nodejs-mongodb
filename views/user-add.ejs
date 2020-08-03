@@ -1,6 +1,9 @@
 <% layout('base') -%>
 <div class="panel">
     <h2>Add User<h2>
+    <% if(message.error) { %>
+        <div class="alert alert-danger"><%= message.error %></div>
+    <% } %>
     <div class="panel panel-default">
         <div class="form-panel">
             <form action="/user-add" method="POST">

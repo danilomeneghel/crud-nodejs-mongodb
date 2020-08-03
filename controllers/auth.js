@@ -12,7 +12,7 @@ exports.login = (req, res, next) => {
     passport.deserializeUser(User.deserializeUser())
 
     passport.authenticate("local", {
-        successRedirect: "/users",
+        successRedirect: "/orders",
         failureRedirect: "/",
         failureFlash: "Username or Password invalid"
     })(req, res, next)

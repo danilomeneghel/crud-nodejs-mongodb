@@ -6,7 +6,7 @@
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th>Type</td>
+                <th>Name</td>
                 <th>Price</td>
                 <th>Date</td>
                 <th class="text-center">Action</td>
@@ -15,7 +15,7 @@
         <tbody>
             <% data.forEach(function(details) { %>
             <tr>
-                <td><%= details.type %></td>
+                <td><%= details.name %></td>
                 <td><%= parseFloat(details.price).toLocaleString("pt-br", {style:"currency", currency:"BRL"}) %></td>
                 <td><%= new Date(details.createdAt).toLocaleDateString("pt-br", {timeZone: "UTC"}) %></td>
                 <td class="text-center">

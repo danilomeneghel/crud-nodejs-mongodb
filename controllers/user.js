@@ -7,7 +7,7 @@ var ObjectId = mongoose.Types.ObjectId
 exports.userList = (req, res) => {
     User.find()
     .exec((err, results) => {
-        if (err) return console.log(err)
+        if (err) return res.send(err)
 
         res.render('users', { data: results })
     })

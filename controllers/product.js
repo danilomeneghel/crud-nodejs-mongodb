@@ -6,20 +6,20 @@ var ObjectId = mongoose.Types.ObjectId
 exports.productList = (req, res) => {
     Product.find()
     .exec((err, results) => {
-        if (err) return console.log(err)
+        if (err) return res.send(err)
 
         res.render('products', { data: results })
     })
 }
 
 exports.pageAdd = (req, res) => {
-    res.render("product-add")
+    res.render("product-add", { message: {} })
 }
 
 exports.productAdd = (req, res) => {
-    new Product(req.body)
-    .save((err) => {
-        if (err) return console.log(err)
+    Product.create(req.body)
+    .then((result) => {
+        if (!result) return res.render('product-add', { message: {'error': result} }) 
 
         res.redirect('/products')
     })
@@ -30,19 +30,19 @@ exports.pageEdit = (req, res) => {
     .exec((err, result) => {
         if (err) return res.send(err)
         
-        res.render('product-edit', { data: result })
+        res.render('product-edit', { data: result, message: {} })
     })
 }
 
 exports.productEdit = (req, res) => {
     Product.updateOne({_id: ObjectId(req.params.id)}, {
         $set: {
-            type: req.body.type,
+            name: req.body.name,
             price: req.body.price,
             description: req.body.description
         }
     })
-    .then(result => {
+    .then((result) => {
         if (!result) return res.render('product-edit', { message: {'error': result} }) 
         
         res.redirect('/products')
