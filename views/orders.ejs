@@ -16,8 +16,8 @@
         <tbody>
             <% data.forEach(function(details) { %>
             <tr>
-                <td><%= details.customer %></td>
-                <td><%= details.product %></td>
+                <td><%= details.customer.name %></td>
+                <td><%= details.product.name %></td>
                 <td><%= details.quantity %></td>
                 <td><%= new Date(details.deliveryDate).toLocaleString("pt-br", {timeZone: "UTC"}) %></td>
                 <td class="text-center">

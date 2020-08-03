@@ -9,24 +9,26 @@
 			<% data.forEach(function(details) { %>
 			<form action="/order-edit/<%= details._id %>" method="POST">
 				<div class="form-group">
-					<select class="form-control" name="customer">
-						<% details.customers.forEach(function(customer) { %>
-							<option value="<%=customer.id%>" selected="selected"><%=customer.name%></option>
-						<% }) %>
+                    <select class="form-control" name="customer">
+                        <option value="" selected="selected" disabled="true">Customer</option>
+						<% customers.forEach(function(customer) { %>
+							<option value="<%=customer.id%>"><%=customer.name%></option>
+                        <% }) %>
 					</select>
-				</div>
-				<div class="form-group">
-					<select class="form-control" name="product">
-						<% details.products.forEach(function(product) { %>
-							<option value="<%=product.id%>" selected="selected"><%=product.name%></option>
-						<% }) %>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" name="product">
+                        <option value="" selected="selected" disabled="true">Product</option>
+						<% products.forEach(function(product) { %>
+							<option value="<%=product.id%>"><%=product.name%></option>
+                        <% }) %>
 					</select>
-				</div>
+                </div>
 				<div class="form-group">
 					<input type="number" class="form-control" value="<%= details.quantity %>" name="quantity" required="true" autofocus><br>
 				</div>
 				<div class="form-group">
-					<input type="datetime-local" class="form-control" value="<%= details.deliveryDate %>" name="deliveryDate" required="true" autofocus><br>
+					<input type="datetime-local" class="form-control" value="<%= moment.utc(details.deliveryDate).format('YYYY-MM-DDTHH:mm:ss') %>" name="deliveryDate" required="true" autofocus><br>
 				</div>
 				<div class="form-group">
                     <textarea class="form-control" placeholder="Note" name="note" required="true" autofocus><%= details.note %></textarea>

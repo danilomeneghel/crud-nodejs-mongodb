@@ -6,9 +6,10 @@ const Order = require("../models/order"),
 
 var ObjectId = mongoose.Types.ObjectId
 
-exports.orderList = (req, res) => {
+exports.orderList = async (req, res) => {
     Order.find()
-    .populate('customers', 'products')
+    .populate('customer')
+    .populate('product')
     .exec((err, results) => {
         if (err) return res.send(err)
 
@@ -32,6 +33,7 @@ exports.pageAdd = (req, res) => {
         }
     ], function(err, callbackResults) {
         if (err) return res.send(err)
+
         res.render('order-add', { customers: callbackResults[0], products: callbackResults[1], message: {} })
     })
 }
@@ -46,11 +48,29 @@ exports.orderAdd = (req, res) => {
 }
 
 exports.pageEdit = (req, res) => {
-    Order.find({_id: ObjectId(req.params.id)})
-    .exec((err, result) => {
+    async.parallel([
+        function(callback) {
+            Customer.find({}, function (err, rows1) {
+                if (err) return callback(err)
+                return callback(null, rows1)
+            })
+        },
+        function(callback) {
+            Product.find({}, function (err, rows2) {
+                if (err) return callback(err)
+                return callback(null, rows2)
+            })
+        },
+        function(callback) {
+            Order.find({_id: ObjectId(req.params.id)}, function (err, rows3) {
+                if (err) return callback(err)
+                return callback(null, rows3)
+            })
+        }
+    ], function(err, callbackResults) {
         if (err) return res.send(err)
-        
-        res.render('order-edit', { data: result, message: {} })
+
+        res.render('order-edit', { customers: callbackResults[0], products: callbackResults[1], data: callbackResults[2], message: {} })
     })
 }
 

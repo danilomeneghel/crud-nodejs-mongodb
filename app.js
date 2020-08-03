@@ -7,7 +7,10 @@ const express = require('express'),
   consign = require('consign'),
   db = require('./config/db'),
   error = require('./util/error'),
-  flash = require('connect-flash');
+  flash = require('connect-flash'),
+  moment = require('moment');
+
+app.locals.moment = moment;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
