@@ -31,7 +31,9 @@ exports.addRegister = (req,res) => {
     User.register(new User({
         name: req.body.name,
         email: req.body.email,
-        username: req.body.username
+        username: req.body.username,
+        role: "user",
+        status: "active"
     }), req.body.password, 
     (err, user) => {
         if(err) return res.redirect('?error=' + err.message)

@@ -8,7 +8,9 @@ var userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String },
     resetPasswordToken: String,
-    resetPasswordExpires: Date
+    resetPasswordExpires: Date,
+    role: { type: String, enum: ['admin', 'user'], default: 'user', required: true },
+    status: { type: String, enum: ['active', 'inactive'], default: 'active', required: true }
 }, {
     timestamps: true
 })

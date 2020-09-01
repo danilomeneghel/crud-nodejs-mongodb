@@ -9,10 +9,10 @@
 			<% data.forEach(function(details) { %>
 			<form action="/product-edit/<%= details._id %>" method="POST">
 				<div class="form-group">
-					<input type="text" class="form-control" value="<%= details.name %>" name="name" required="true" autofocus><br>
+					<input type="text" class="form-control" value="<%= details.name %>" name="name" required="true" autofocus>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control money" value="<%= details.price %>" name="price" required="true" autofocus><br>
+					<input type="text" class="form-control money" value="<%= details.price %>" name="price" required="true" autofocus>
 				</div>
 				<div class="form-group">
                     <textarea type="text" class="form-control" name="description" required="true" autofocus><%= details.description %></textarea>

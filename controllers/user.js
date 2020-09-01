@@ -14,17 +14,19 @@ exports.userList = (req, res) => {
 }
 
 exports.pageAdd = (req, res) => {
-    res.render("user-add")
+    res.render("user-add", { message: {} })
 }
 
 exports.userAdd = (req, res) => {
     User.register(new User({
         name: req.body.name,
         email: req.body.email,
-        username: req.body.username
+        username: req.body.username,
+        role: req.body.role,
+        status: req.body.status
     }), req.body.password, 
     (err) => {
-        if(err) return res.render('user-add')
+        if (err) return res.render('user-add', { message: {'error': err} }) 
 
         res.redirect("/users")
     })
@@ -34,7 +36,7 @@ exports.pageEdit = (req, res) => {
     User.find({_id: ObjectId(req.params.id)}).exec((err, result) => {
         if (err) return res.send(err)
         
-        res.render('user-edit', { data: result })
+        res.render('user-edit', { data: result, message: {} })
     })
 }
 
@@ -42,11 +44,13 @@ exports.userEdit = (req, res) => {
     User.findOne({_id: ObjectId(req.params.id)})
     .then((user) => {
         user.setPassword(req.body.password, (err, user) => {
-            if (err) return next(err)
+            if (err) return res.render('user-edit', { message: {'error': err} }) 
 
             user.name = req.body.name
             user.email = req.body.email
             user.username = req.body.username
+            user.role = req.body.role
+            user.status = req.body.status
             user.save()
 
             res.redirect("/users")
