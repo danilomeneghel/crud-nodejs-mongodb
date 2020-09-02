@@ -21,8 +21,8 @@
                 <td><%= details.name %></td>
                 <td><%= details.email %></td>
                 <td><%= details.username %></td>
-                <td><%= details.role %></td>
-                <td><%= details.status %></td>
+                <td><span class="capitalize"><%= details.role %></span></td>
+                <td><span class="capitalize"><%= details.status %></span></td>
                 <td><%= new Date(details.createdAt).toLocaleDateString("pt-br", {timeZone: "UTC"}) %></td>
                 <td class="text-center">
                     <a class="btn btn-primary" href="/user-edit/<%= details._id %>">Edit</a>

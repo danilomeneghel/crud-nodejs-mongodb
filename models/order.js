@@ -1,7 +1,7 @@
 var mongoose = require("mongoose")
 
 var orderSchema = new mongoose.Schema({
-    customer: {type: mongoose.Schema.Types.ObjectId, ref: 'Customer'},
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     product: {type: mongoose.Schema.Types.ObjectId, ref: 'Product'},
     quantity: { type: Number, required: true, default: 1 },
     deliveryDate: { type: Date, required: true },

@@ -518,6 +518,10 @@ fieldset {
     color:#000;
 }
 
+.capitalize {
+    text-transform: capitalize;
+}
+
 @media only screen and (max-width: 500px) {
     .container, .container-fluid {
         padding-left: 8px !important;

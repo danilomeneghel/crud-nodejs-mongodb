@@ -33,7 +33,7 @@ exports.userAdd = (req, res) => {
 }
 
 exports.pageEdit = (req, res) => {
-    User.find({_id: ObjectId(req.params.id)}).exec((err, result) => {
+    User.findOne({_id: ObjectId(req.params.id)}).exec((err, result) => {
         if (err) return res.send(err)
         
         res.render('user-edit', { data: result, message: {} })

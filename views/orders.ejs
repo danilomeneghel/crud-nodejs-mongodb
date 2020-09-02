@@ -6,7 +6,8 @@
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th>Customer</td>
+                <th>User</td>
+                <th>E-mail</td>
                 <th>Product</td>
                 <th>Quantity</td>
                 <th>Delivery Date</td>
@@ -16,7 +17,8 @@
         <tbody>
             <% data.forEach(function(details) { %>
             <tr>
-                <td><%= details.customer.name %></td>
+                <td><%= details.user.name %></td>
+                <td><%= details.user.email %></td>
                 <td><%= details.product.name %></td>
                 <td><%= details.quantity %></td>
                 <td><%= new Date(details.deliveryDate).toLocaleString("pt-br", {timeZone: "UTC"}) %></td>

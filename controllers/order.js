@@ -1,5 +1,5 @@
 const Order = require("../models/order"),
-    Customer = require("../models/customer"),
+    User = require("../models/user"),
     Product = require("../models/product"),
     mongoose = require('mongoose'),
     async = require('async')
@@ -8,7 +8,7 @@ var ObjectId = mongoose.Types.ObjectId
 
 exports.orderList = async (req, res) => {
     Order.find()
-    .populate('customer')
+    .populate('user')
     .populate('product')
     .exec((err, results) => {
         if (err) return res.send(err)
@@ -20,7 +20,7 @@ exports.orderList = async (req, res) => {
 exports.pageAdd = (req, res) => {
     async.parallel([
         function(callback) {
-            Customer.find({}, function (err, rows1) {
+            User.find({role: 'user'}, function (err, rows1) {
                 if (err) return callback(err)
                 return callback(null, rows1)
             })
@@ -34,7 +34,7 @@ exports.pageAdd = (req, res) => {
     ], function(err, callbackResults) {
         if (err) return res.send(err)
 
-        res.render('order-add', { customers: callbackResults[0], products: callbackResults[1], message: {} })
+        res.render('order-add', { users: callbackResults[0], products: callbackResults[1], message: {} })
     })
 }
 
@@ -50,7 +50,7 @@ exports.orderAdd = (req, res) => {
 exports.pageEdit = (req, res) => {
     async.parallel([
         function(callback) {
-            Customer.find({}, function (err, rows1) {
+            User.find({role: 'user'}, function (err, rows1) {
                 if (err) return callback(err)
                 return callback(null, rows1)
             })
@@ -62,24 +62,24 @@ exports.pageEdit = (req, res) => {
             })
         },
         function(callback) {
-            Order.find({_id: ObjectId(req.params.id)}, function (err, rows3) {
+            Order.findOne({_id: ObjectId(req.params.id)}, function (err, rows3) {
                 if (err) return callback(err)
                 return callback(null, rows3)
             })
-            .populate('customer')
+            .populate('user')
             .populate('product')
         }
     ], function(err, callbackResults) {
         if (err) return res.send(err)
 
-        res.render('order-edit', { customers: callbackResults[0], products: callbackResults[1], data: callbackResults[2], message: {} })
+        res.render('order-edit', { users: callbackResults[0], products: callbackResults[1], data: callbackResults[2], message: {} })
     })
 }
 
 exports.orderEdit = (req, res) => {
     Order.updateOne({_id: ObjectId(req.params.id)}, {
         $set: {
-            customer: req.body.customer,
+            user: req.body.user,
             product: req.body.product,
             quantity: req.body.quantity,
             deliveryDate: req.body.deliveryDate,

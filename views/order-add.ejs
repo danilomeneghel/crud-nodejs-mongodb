@@ -8,10 +8,10 @@
         <div class="form-panel">
             <form action="/order-add" method="POST">
                 <div class="form-group">
-                    <select class="form-control" name="customer">
-                        <option value="" selected="selected" disabled="true">Customer</option>
-						<% customers.forEach(function(customer) { %>
-							<option value="<%=customer.id%>"><%=customer.name%></option>
+                    <select class="form-control" name="user">
+                        <option value="" selected="selected" disabled="true">User</option>
+						<% users.forEach(function(user) { %>
+							<option value="<%=user.id%>"><%=user.name%></option>
                         <% }) %>
 					</select>
                 </div>

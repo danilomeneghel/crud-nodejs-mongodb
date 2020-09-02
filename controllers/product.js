@@ -26,7 +26,7 @@ exports.productAdd = (req, res) => {
 }
 
 exports.pageEdit = (req, res) => {
-    Product.find({_id: ObjectId(req.params.id)})
+    Product.findOne({_id: ObjectId(req.params.id)})
     .exec((err, result) => {
         if (err) return res.send(err)
         
