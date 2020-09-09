@@ -88,6 +88,12 @@ a:hover.btn {
     padding: 15px;
 	/*border-radius: 10px 10px 10px 10px !important;*/
 }
+.panel-home {
+	display: block;
+    text-align: center;
+    padding: 25px;
+}
+
 .box-login {
     box-shadow: 1px 3px 12px #50575b;
     background-color: #fff;
