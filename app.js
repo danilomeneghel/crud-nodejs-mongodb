@@ -32,10 +32,10 @@ app.use(session({
 }));
 
 app.engine('ejs', engine);
-app.set('views', __dirname + '/../frontend/src/views');
+app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.use(express.static(__dirname + '/../frontend/public'));
+app.use(express.static(__dirname + '/public'));
 
 app.use(passport.initialize())
 app.use(passport.session())
