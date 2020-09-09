@@ -32,28 +32,29 @@ a:hover.btn {
     text-decoration: none !important;
 }
 
+.bg-login {
+    background-color: #e4e4e4;
+}
+
 .container-fluid {
     padding-left: 45px !important;
     padding-right: 45px !important;
 }
-
-.bg-login {
-    background-color: #e4e4e4;
-}
-.bg-login .container-login {
-    max-width: 342px;
+.container-login {
+    max-width: 350px;
     margin: 0px auto !important;
     padding-top: 60px !important;
 }
-.bg-login .container-register {
-    max-width: 342px;
+.container-login a {
+    color: #333333;
+    text-decoration: none;
+}
+.container-register {
+    max-width: 350px;
     margin: 0px auto !important;
     padding-top: 120px !important;
 }
-.bg-login .container-login a {
-    color: #333333 !important;
-    text-decoration: none;
-}
+
 .logo-login {
     text-align: center;
     padding-bottom: 25px;
@@ -69,7 +70,7 @@ a:hover.btn {
 
 .panel {
     margin-bottom: 20px;
-    background-color: transparent !important;
+    background-color: transparent;
     border: 1px solid transparent;
     border-top-color: transparent;
     border-right-color: transparent;
@@ -513,8 +514,11 @@ fieldset {
     width:100%; 
     overflow:hidden; 
 }
+#contents div:nth-child(2) {
+    display: none;
+}
+
 .content{
-    display:none; 
     color:#000;
 }
 

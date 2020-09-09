@@ -6,6 +6,17 @@ const Order = require("../models/order"),
 
 var ObjectId = mongoose.Types.ObjectId
 
+exports.orders = (req, res) => {
+    Order.find()
+    .populate('user')
+    .populate('product')
+    .exec((err, results) => {
+        if (err) return res.send(err)
+
+        res.status(200).json(results)
+    })
+}
+
 exports.orderList = async (req, res) => {
     Order.find()
     .populate('user')

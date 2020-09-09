@@ -3,6 +3,9 @@ const order = require('../controllers/order'),
 
 module.exports = (app) => {
 
+    app.route('/orders-list')
+        .get(order.orders)
+    
     app.route('/orders')
         .get(user.isLoggedIn, order.orderList)
 

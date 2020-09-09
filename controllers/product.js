@@ -3,6 +3,15 @@ const Product = require("../models/product"),
 
 var ObjectId = mongoose.Types.ObjectId
 
+exports.products = (req, res) => {
+    Product.find()
+    .exec((err, results) => {
+        if (err) return res.send(err)
+
+        res.status(200).json(results)
+    })
+}
+
 exports.productList = (req, res) => {
     Product.find()
     .exec((err, results) => {

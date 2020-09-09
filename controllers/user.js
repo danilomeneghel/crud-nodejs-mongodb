@@ -4,6 +4,15 @@ const passport = require("passport"),
 
 var ObjectId = mongoose.Types.ObjectId
 
+exports.users = (req, res) => {
+    User.find()
+    .exec((err, results) => {
+        if (err) return res.send(err)
+
+        res.status(200).json(results)
+    })
+}
+
 exports.userList = (req, res) => {
     User.find()
     .exec((err, results) => {
@@ -18,15 +27,9 @@ exports.pageAdd = (req, res) => {
 }
 
 exports.userAdd = (req, res) => {
-    User.register(new User({
-        name: req.body.name,
-        email: req.body.email,
-        username: req.body.username,
-        role: req.body.role,
-        status: req.body.status
-    }), req.body.password, 
-    (err) => {
-        if (err) return res.render('user-add', { message: {'error': err} }) 
+    User.create(req.body)
+    .then((result) => {
+        if (!result) return res.render('user-add', { message: {'error': result} }) 
 
         res.redirect("/users")
     })
@@ -105,5 +108,5 @@ exports.userDelete = (req, res) => {
 exports.isLoggedIn = (req, res, next) => {
     if(req.isAuthenticated()) return next()
 
-    res.redirect("/")
+    res.redirect("/login")
 }

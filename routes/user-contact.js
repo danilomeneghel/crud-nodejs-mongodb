@@ -3,6 +3,9 @@ const userContact = require('../controllers/user-contact'),
 
 module.exports = (app) => {
 
+    app.route('/users-contacts-list')
+        .get(userContact.usersContacts)
+    
     app.route('/users-contacts')
         .get(user.isLoggedIn, userContact.userContactList)
 

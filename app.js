@@ -8,9 +8,20 @@ const express = require('express'),
   db = require('./config/db'),
   error = require('./util/error'),
   flash = require('connect-flash'),
-  moment = require('moment');
+  moment = require('moment'),
+  cors = require('cors');
 
 app.locals.moment = moment;
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -21,10 +32,10 @@ app.use(session({
 }));
 
 app.engine('ejs', engine);
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/../frontend/src/views');
 app.set('view engine', 'ejs');
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/../frontend/public'));
 
 app.use(passport.initialize())
 app.use(passport.session())
@@ -42,5 +53,5 @@ app.use(error.notfound);
 app.use(error.serverError);
 
 app.listen(process.env.PORT, () => {
-  console.log('App listening on port 3000!');
+  console.log('App listening on port 3001!');
 });

@@ -3,6 +3,9 @@ const product = require('../controllers/product'),
 
 module.exports = (app) => {
 
+    app.route('/products-list')
+        .get(product.products)
+    
     app.route('/products')
         .get(user.isLoggedIn, product.productList)
 
