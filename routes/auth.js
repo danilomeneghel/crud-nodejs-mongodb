@@ -10,6 +10,9 @@ module.exports = (app) => {
         .get(auth.login)
         .post(auth.auth)
     
+	app.route('/authenticate')
+        .post(auth.authenticate)
+    
     app.route('/logout')
         .get(auth.logout)
 

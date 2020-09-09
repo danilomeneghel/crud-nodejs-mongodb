@@ -61,7 +61,18 @@ exports.auth = (req, res) => {
         } else {
             res.status(401).json(info)
         }
-      })(req, res)
+	})(req, res)
+}
+
+exports.authenticate = (req, res, next) => { 
+    passport.use(new LocalStrategy(User.authenticate()))
+    passport.serializeUser(User.serializeUser())
+    passport.deserializeUser(User.deserializeUser())
+    passport.authenticate("local", {
+        successRedirect: "/",
+        failureRedirect: "/login",
+        failureFlash: "Username or Password is invalid"
+    })(req, res, next)
 }
 
 exports.index = (req, res) => {
