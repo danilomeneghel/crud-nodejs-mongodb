@@ -4,14 +4,14 @@ const auth = require('../controllers/auth'),
 module.exports = (app) => {
 
     app.route('/')
-        .get(user.isLoggedIn, auth.index)
+        .get(auth.index)
     
-    app.route('/login')
+    app.route('/signIn')
+        .post(auth.signIn)
+    
+	app.route('/login')
         .get(auth.login)
         .post(auth.auth)
-    
-	app.route('/authenticate')
-        .post(auth.authenticate)
     
     app.route('/logout')
         .get(auth.logout)
@@ -20,5 +20,8 @@ module.exports = (app) => {
         .get(auth.pageRegister)
         .post(auth.addRegister)
 
+    app.route('/signUp')
+        .post(auth.signUp)
+    
     return app
 }
