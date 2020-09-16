@@ -5,7 +5,7 @@ const UserContact = require("../models/user-contact"),
 
 var ObjectId = mongoose.Types.ObjectId
 
-exports.usersContacts = (req, res) => {
+exports.usersContactsList = (req, res) => {
     UserContact.find()
     .populate('user')
     .exec((err, results) => {
@@ -15,7 +15,50 @@ exports.usersContacts = (req, res) => {
     })
 }
 
-exports.userContactList = (req, res) => {
+exports.userContactCreate = (req, res) => {
+    UserContact.create(req.body.item)
+    .then((result) => {
+        if (!result) return res.status(400).json({ error: result })
+
+        res.status(201).json({ result: result, success: 'User Contact successfully created!' })
+    })
+    .catch(err => {
+        return res.status(400).json({ error: err })
+    })
+}
+
+exports.userContactUpdate = (req, res) => {
+    UserContact.updateOne({_id: ObjectId(req.params.id)}, {
+        $set: {
+            user: req.body.item.user,
+            address: req.body.item.address,
+            city: req.body.item.city,
+            phone: req.body.item.phone
+        }
+    })
+    .then((result) => {
+        if (!result) return res.status(400).json(false)
+        
+        res.status(201).json({ result: result, success: 'User Contact successfully changed!' })
+    })
+    .catch(err => {
+        return res.status(400).json({ error: err })
+    })
+}
+
+exports.userContactRemove = (req, res) => {
+    UserContact.deleteOne({_id: ObjectId(req.params.id)}, 
+    (err) => {
+        if (err) return res.status(400).json(false)
+
+        res.status(200).json({ success: 'User Contact successfully removed!' })
+    })
+    .catch(err => {
+        return res.status(400).json({ error: err })
+    })
+}
+
+exports.usersContacts = (req, res) => {
     UserContact.find()
     .populate('user')
     .exec((err, results) => {
@@ -40,6 +83,9 @@ exports.userContactAdd = (req, res) => {
         if (!result) return res.render('user-contact-add', { message: {'error': result} }) 
 
         res.redirect('/users-contacts')
+    })
+    .catch(err => {
+        return res.render('user-contact-add', { message: {'error': err} }) 
     })
 }
 
@@ -78,6 +124,9 @@ exports.userContactEdit = (req, res) => {
         if (!result) return res.render('user-contact-edit', { message: {'error': result} }) 
         
         res.redirect('/users-contacts')
+    })
+    .catch(err => {
+        return res.render('user-contact-edit', { message: {'error': err} }) 
     })
 }
 
