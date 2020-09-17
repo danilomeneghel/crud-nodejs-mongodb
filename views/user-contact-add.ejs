@@ -8,7 +8,7 @@
         <div class="form-panel">
             <form action="/user-contact-add" method="POST">
                 <div class="form-group">
-                    <select class="form-control" name="user">
+                    <select class="form-control" name="user" required="true" autofocus>
                         <option value="" selected="selected" disabled="true">User</option>
 						<% users.forEach(function(user) { %>
 							<option value="<%=user.id%>"><%=user.name%></option>

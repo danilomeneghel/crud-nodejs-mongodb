@@ -494,6 +494,7 @@ fieldset {
     -webkit-box-flex: 2;
     flex-grow: 2;
     margin: 0px;
+	cursor: pointer;
 }
 .tab span {
     height:50px;
