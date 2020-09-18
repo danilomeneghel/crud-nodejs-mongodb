@@ -122,18 +122,19 @@ exports.pageProfile = (req, res) => {
 }
 
 exports.editProfile = (req, res) => {
-    User.updateOne({_id: ObjectId(req.params.id)}, {
-        $set: {
-            name: req.body.name,
-            email: req.body.email,
-            username: req.body.username,
-            password: req.body.password
-        }
+	var data = {
+		name: req.body.name,
+		email: req.body.email,
+		username: req.body.username,
+		password: req.body.password
+	}
+    User.updateOne({_id: req.user.id}, {
+        $set: data
     })
 	.then((result) => {
         if (!result) return res.render('profile', { message: {'error': result} }) 
-        
-        res.render('profile', { message: {'success': 'Profile updated success!'} })
+		
+        res.render('profile', { data: [data], message: {'success': 'Profile updated success!'} })
     })
     .catch(err => {
         return res.render('profile', { message: {'error': err} }) 
