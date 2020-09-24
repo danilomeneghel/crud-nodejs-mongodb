@@ -16,7 +16,7 @@
             <% data.forEach(function(details) { %>
             <tr>
                 <td><%= details.name %></td>
-                <td><%= parseFloat(details.price).toLocaleString("pt-br", {style:"currency", currency:"BRL"}) %></td>
+                <td><%= parseFloat(details.price).toLocaleString("pt-br", {style:"currency", currency:"USD"}) %></td>
                 <td><%= new Date(details.createdAt).toLocaleDateString("pt-br", {timeZone: "UTC"}) %></td>
                 <td class="text-center">
                     <a class="btn btn-primary" href="/product-edit/<%= details._id %>">Edit</a>
